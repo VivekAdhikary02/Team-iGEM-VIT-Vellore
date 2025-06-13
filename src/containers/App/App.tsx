@@ -44,13 +44,15 @@ const App = () => {
               element={
                 <>
                   <Header title={title || ""} lead={lead || ""} />
-                  <div className="container">
+                  <div className="container-fluid">
                     <div className="row">
-                      <div className="col-lg-9">
-                        <Component />
-                      </div>
-                      <div className="col-lg-3">
+                      <div className="col-lg-2">
                         <SectionNavigator />
+                      </div>
+                      <div className="col-lg-10">
+                        <div className="container">
+                          <Component />
+                        </div>
                       </div>
                     </div>
                   </div>

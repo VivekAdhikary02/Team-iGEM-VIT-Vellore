@@ -3,6 +3,10 @@ body {
   margin: 0;
 }
 
+.container-fluid .row .col-lg-10 {
+  margin-left: 16.66%;
+}
+
 .left-aligned {
   margin-left: auto;
 }
@@ -26,14 +30,16 @@ body {
 
 /* Section Navigator */
 .section-navigator {
-  position: sticky;
-  top: 80px;
+  position: fixed;
+  top: 59px;
+  left: 0;
+  width: 16.66%;
+  height: calc(100vh - 59px);
   padding: 1rem;
   background-color: #f8f9fa;
-  border-radius: 0.5rem;
-  margin-top: 1rem;
-  max-height: 70vh;
+  border-right: 1px solid #dee2e6;
   overflow-y: auto;
+  z-index: 999;
 }
 
 .section-navigator h6 {

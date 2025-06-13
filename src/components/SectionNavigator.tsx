@@ -1,9 +1,11 @@
 
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 export function SectionNavigator() {
   const [sections, setSections] = useState<Array<{ id: string; title: string }>>([]);
   const [activeSection, setActiveSection] = useState<string>('');
+  const location = useLocation();
 
   useEffect(() => {
     // Find all headings in the content
@@ -37,7 +39,7 @@ export function SectionNavigator() {
     handleScroll(); // Initial check
 
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [location.pathname]);
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
