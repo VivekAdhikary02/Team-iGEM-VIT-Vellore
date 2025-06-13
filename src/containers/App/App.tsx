@@ -7,6 +7,9 @@ import { Navbar } from "../../components/Navbar";
 import { Header } from "../../components/Header";
 import { NotFound } from "../../components/NotFound";
 import { Footer } from "../../components/Footer";
+import { ProgressBar } from "../../components/ProgressBar";
+import { SectionNavigator } from "../../components/SectionNavigator";
+import { BackToTop } from "../../components/BackToTop";
 
 const App = () => {
   const pathMapping = getPathMapping();
@@ -28,6 +31,9 @@ const App = () => {
       {/* Navigation */}
       <Navbar />
 
+      {/* Progress Bar */}
+      <ProgressBar />
+
       {/* Header and PageContent */}
       <Routes>
         {Object.entries(pathMapping).map(
@@ -39,7 +45,14 @@ const App = () => {
                 <>
                   <Header title={title || ""} lead={lead || ""} />
                   <div className="container">
-                    <Component />
+                    <div className="row">
+                      <div className="col-lg-9">
+                        <Component />
+                      </div>
+                      <div className="col-lg-3">
+                        <SectionNavigator />
+                      </div>
+                    </div>
                   </div>
                 </>
               }
@@ -63,6 +76,9 @@ const App = () => {
       {/* Footer */}
       {/* MUST mention license AND have a link to team wiki's repository on gitlab.igem.org */}
       <Footer />
+
+      {/* Back to Top Button */}
+      <BackToTop />
     </>
   );
 };
