@@ -7,7 +7,7 @@ body {
   margin-left: 250px;
   padding: 2rem;
   min-height: calc(100vh - 200px);
-  transition: margin-left 0.3s ease;
+  transition: margin-left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .left-aligned {
@@ -43,9 +43,37 @@ body {
   border-right: 1px solid #dee2e6;
   overflow-y: auto;
   z-index: 999;
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.section-navigator.visible {
   opacity: 1;
   transform: translateX(0);
-  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOut {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
 }
 
 .section-navigator h6 {

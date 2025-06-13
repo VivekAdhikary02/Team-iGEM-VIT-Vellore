@@ -33,8 +33,10 @@ export function SectionNavigator() {
       const footer = document.querySelector('footer');
       
       if (mainContent && footer) {
-        const mainContentTop = mainContent.offsetTop;
-        const footerTop = footer.offsetTop;
+        const mainContentRect = mainContent.getBoundingClientRect();
+        const footerRect = footer.getBoundingClientRect();
+        const mainContentTop = mainContentRect.top + window.scrollY;
+        const footerTop = footerRect.top + window.scrollY;
         const currentPosition = window.scrollY + window.innerHeight / 2;
         
         // Show navigator only when in main content area
@@ -67,7 +69,7 @@ export function SectionNavigator() {
   if (sections.length === 0 || !isVisible) return null;
 
   return (
-    <div className="section-navigator">
+    <div className={`section-navigator ${isVisible ? 'visible' : ''}`}>
       <h6>On this page</h6>
       <ul>
         {sections.map((section) => (
