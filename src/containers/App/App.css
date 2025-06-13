@@ -5,8 +5,9 @@ body {
 
 .main-content-wrapper {
   margin-left: 250px;
-  padding: 0 2rem;
+  padding: 2rem;
   min-height: calc(100vh - 200px);
+  transition: margin-left 0.3s ease;
 }
 
 .left-aligned {
@@ -42,6 +43,9 @@ body {
   border-right: 1px solid #dee2e6;
   overflow-y: auto;
   z-index: 999;
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .section-navigator h6 {

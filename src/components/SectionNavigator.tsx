@@ -5,11 +5,15 @@ import { useLocation } from 'react-router-dom';
 export function SectionNavigator() {
   const [sections, setSections] = useState<Array<{ id: string; title: string }>>([]);
   const [activeSection, setActiveSection] = useState<string>('');
+  const [isVisible, setIsVisible] = useState<boolean>(false);
   const location = useLocation();
 
   useEffect(() => {
-    // Find all headings in the content
-    const headings = document.querySelectorAll('h1, h2, h3, h4');
+    // Find all headings in the main content area only (exclude header and footer)
+    const mainContent = document.querySelector('.main-content-wrapper');
+    if (!mainContent) return;
+    
+    const headings = mainContent.querySelectorAll('h1, h2, h3, h4');
     const sectionList = Array.from(headings).map((heading, index) => {
       const id = heading.id || `section-${index}`;
       if (!heading.id) {
@@ -22,10 +26,22 @@ export function SectionNavigator() {
     });
     setSections(sectionList);
 
-    // Handle scroll to highlight active section
+    // Handle scroll to highlight active section and control visibility
     const handleScroll = () => {
       const scrollPosition = window.scrollY + 100;
+      const mainContent = document.querySelector('.main-content-wrapper');
+      const footer = document.querySelector('footer');
       
+      if (mainContent && footer) {
+        const mainContentTop = mainContent.offsetTop;
+        const footerTop = footer.offsetTop;
+        const currentPosition = window.scrollY + window.innerHeight / 2;
+        
+        // Show navigator only when in main content area
+        setIsVisible(currentPosition >= mainContentTop && currentPosition < footerTop);
+      }
+      
+      // Update active section
       for (let i = sectionList.length - 1; i >= 0; i--) {
         const element = document.getElementById(sectionList[i].id);
         if (element && element.offsetTop <= scrollPosition) {
@@ -48,7 +64,7 @@ export function SectionNavigator() {
     }
   };
 
-  if (sections.length === 0) return null;
+  if (sections.length === 0 || !isVisible) return null;
 
   return (
     <div className="section-navigator">
