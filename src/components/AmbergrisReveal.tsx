@@ -14,7 +14,8 @@ export function AmbergrisReveal({ onRevealComplete }: AmbergrisRevealProps) {
     if (!animationStarted || !containerRef.current) return;
 
     // Import GSAP dynamically for better performance
-    import('gsap').then(({ gsap }) => {
+    import('gsap').then((gsapModule) => {
+      const { gsap } = gsapModule;
       const tl = gsap.timeline({
         onComplete: () => {
           setTimeout(() => {
