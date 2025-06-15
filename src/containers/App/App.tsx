@@ -10,6 +10,8 @@ import { Footer } from "../../components/Footer";
 import { ProgressBar } from "../../components/ProgressBar";
 import { SectionNavigator } from "../../components/SectionNavigator";
 import { BackToTop } from "../../components/BackToTop";
+import { AutoReveal } from "../../components/AutoReveal";
+
 const App = () => {
   const pathMapping = getPathMapping();
   const currentPath =
@@ -25,8 +27,15 @@ const App = () => {
     document.title = `${title || ""} | ${import.meta.env.VITE_TEAM_NAME} - iGEM ${import.meta.env.VITE_TEAM_YEAR}`;
   }, [title]);
 
+  const [showReveal, setShowReveal] = useState(true);
+
+  const handleRevealComplete = () => {
+    setShowReveal(false);
+  };
+
   return (
     <>
+      {showReveal && <AutoReveal onComplete={handleRevealComplete} />}
       {/* Navigation */}
       <Navbar />
 
