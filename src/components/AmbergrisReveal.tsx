@@ -46,7 +46,7 @@ export function AmbergrisReveal({ onRevealComplete }: AmbergrisRevealProps) {
     return () => {
       timeouts.forEach(timeout => clearTimeout(timeout));
     };
-  }, [animationStarted, onRevealComplete]);
+  }, [animationStarted]);
 
   const startReveal = () => {
     setShowTrigger(false);

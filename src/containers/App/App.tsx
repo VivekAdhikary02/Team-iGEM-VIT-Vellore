@@ -27,14 +27,10 @@ const App = () => {
     document.title = `${title || ""} | ${import.meta.env.VITE_TEAM_NAME} - iGEM ${import.meta.env.VITE_TEAM_YEAR}`;
   }, [title]);
 
-  const [showReveal, setShowReveal] = useState(() => {
-    // Check if reveal has been shown before
-    return !sessionStorage.getItem('ambergris-reveal-shown');
-  });
+  const [showReveal, setShowReveal] = useState(true);
 
   const handleRevealComplete = () => {
     setShowReveal(false);
-    sessionStorage.setItem('ambergris-reveal-shown', 'true');
   };
 
   return (
