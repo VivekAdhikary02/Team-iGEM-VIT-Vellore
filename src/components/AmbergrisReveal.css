@@ -5,7 +5,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(135deg, #0a0a2e, #16213e, #1a237e);
+  background: linear-gradient(135deg, #0a0a0a, #1a1a2e, #16213e);
   z-index: 9999;
   overflow: hidden;
   transition: opacity 1s ease-out;
@@ -57,254 +57,234 @@
   position: relative;
   width: 100%;
   height: 100vh;
+  perspective: 1000px;
 }
 
-/* Molecular domino effect */
-.molecules-container {
+/* EPIC DOMINO CHAIN EFFECT */
+.domino-chain {
   position: absolute;
-  top: 20%;
+  top: 10%;
   left: 5%;
   width: 90%;
-  height: 60%;
+  height: 80%;
 }
 
-.molecule {
+.domino {
   position: absolute;
-  width: 60px;
-  height: 60px;
-  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.molecule-core {
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle, #ffd700, #ffab00);
-  border-radius: 50%;
-  box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
-}
-
-.molecule-bonds {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 80px;
-  height: 2px;
-  background: #ffffff;
-  transform: translate(-50%, -50%);
-}
-
-.molecule-bonds::before,
-.molecule-bonds::after {
-  content: '';
-  position: absolute;
-  width: 2px;
-  height: 40px;
-  background: #ffffff;
-  left: 10px;
-  top: -19px;
-}
-
-.molecule-bonds::after {
-  left: 68px;
-}
-
-/* Position molecules in domino pattern */
-.molecule-1 { top: 10%; left: 10%; }
-.molecule-2 { top: 15%; left: 20%; }
-.molecule-3 { top: 20%; left: 30%; }
-.molecule-4 { top: 25%; left: 40%; }
-.molecule-5 { top: 30%; left: 50%; }
-.molecule-6 { top: 35%; left: 60%; }
-.molecule-7 { top: 40%; left: 70%; }
-.molecule-8 { top: 45%; left: 80%; }
-.molecule-9 { top: 50%; left: 75%; }
-.molecule-10 { top: 55%; left: 65%; }
-.molecule-11 { top: 60%; left: 55%; }
-.molecule-12 { top: 65%; left: 45%; }
-
-.molecule.fall {
-  transform: translateY(200px) rotate(360deg);
-  opacity: 0.3;
-}
-
-/* Perfume bottle */
-.perfume-bottle {
-  position: absolute;
-  bottom: 20%;
-  right: 15%;
-  width: 100px;
-  height: 150px;
-}
-
-.bottle-body {
   width: 80px;
   height: 120px;
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
-  border-radius: 10px;
-  border: 2px solid #ffd700;
-  position: relative;
+  background: linear-gradient(145deg, #333, #555);
+  border-radius: 8px;
+  transform-origin: bottom center;
+  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  box-shadow: 
+    0 10px 20px rgba(0,0,0,0.5),
+    inset 0 1px 0 rgba(255,255,255,0.1);
+  border: 2px solid #666;
 }
 
-.bottle-cap {
-  width: 60px;
-  height: 20px;
+.domino::before {
+  content: '';
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 12px;
   background: #ffd700;
-  border-radius: 10px;
-  margin: 0 auto;
-  position: relative;
-  top: -5px;
-}
-
-.spray-nozzle {
-  width: 30px;
-  height: 15px;
-  background: #333;
-  border-radius: 15px;
-  margin: 0 auto;
-  position: relative;
-  top: -10px;
-}
-
-/* Spray effect */
-.spray-effect {
-  position: absolute;
-  bottom: 30%;
-  right: 10%;
-  width: 200px;
-  height: 100px;
-  opacity: 0;
-  transition: opacity 1s ease;
-}
-
-.spray-effect.active {
-  opacity: 1;
-}
-
-.spray-particle {
-  position: absolute;
-  width: 4px;
-  height: 4px;
-  background: rgba(255, 215, 0, 0.8);
   border-radius: 50%;
-  animation: sprayParticle 2s ease-out forwards;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
 }
 
-@keyframes sprayParticle {
+.domino::after {
+  content: '';
+  position: absolute;
+  bottom: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 12px;
+  background: #ffd700;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+}
+
+/* Domino Chain Layout - Curved Path */
+.domino-1 { top: 60%; left: 5%; transform: rotate(-10deg); }
+.domino-2 { top: 58%; left: 10%; transform: rotate(-8deg); }
+.domino-3 { top: 55%; left: 15%; transform: rotate(-5deg); }
+.domino-4 { top: 52%; left: 20%; transform: rotate(-2deg); }
+.domino-5 { top: 50%; left: 25%; transform: rotate(0deg); }
+.domino-6 { top: 48%; left: 30%; transform: rotate(2deg); }
+.domino-7 { top: 45%; left: 35%; transform: rotate(5deg); }
+.domino-8 { top: 42%; left: 40%; transform: rotate(8deg); }
+.domino-9 { top: 40%; left: 45%; transform: rotate(10deg); }
+.domino-10 { top: 38%; left: 50%; transform: rotate(8deg); }
+.domino-11 { top: 36%; left: 55%; transform: rotate(5deg); }
+.domino-12 { top: 35%; left: 60%; transform: rotate(2deg); }
+.domino-13 { top: 34%; left: 65%; transform: rotate(-2deg); }
+.domino-14 { top: 33%; left: 70%; transform: rotate(-5deg); }
+.domino-15 { top: 32%; left: 75%; transform: rotate(-8deg); }
+.domino-16 { top: 31%; left: 80%; transform: rotate(-10deg); }
+.domino-17 { top: 30%; left: 85%; transform: rotate(-12deg); }
+.domino-18 { top: 29%; left: 90%; transform: rotate(-15deg); }
+
+/* Domino Fall Animation */
+.domino.fall {
+  transform: rotateZ(90deg) !important;
+}
+
+/* Energy Wave Effect */
+.energy-wave {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(circle, #ffd700, transparent);
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0);
+}
+
+.energy-wave.active {
+  animation: energyPulse 0.6s ease-out forwards;
+}
+
+@keyframes energyPulse {
   0% {
     opacity: 1;
-    transform: translate(0, 0) scale(1);
+    transform: scale(0);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(2);
   }
   100% {
     opacity: 0;
-    transform: translate(var(--spray-x, 100px), var(--spray-y, -50px)) scale(0.2);
+    transform: scale(4);
   }
 }
 
-/* Generate random spray patterns */
-.particle-1 { --spray-x: 80px; --spray-y: -30px; animation-delay: 0s; }
-.particle-2 { --spray-x: 120px; --spray-y: -45px; animation-delay: 0.1s; }
-.particle-3 { --spray-x: 90px; --spray-y: -60px; animation-delay: 0.2s; }
-.particle-4 { --spray-x: 110px; --spray-y: -25px; animation-delay: 0.3s; }
-.particle-5 { --spray-x: 140px; --spray-y: -40px; animation-delay: 0.4s; }
-.particle-6 { --spray-x: 75px; --spray-y: -55px; animation-delay: 0.5s; }
-.particle-7 { --spray-x: 130px; --spray-y: -35px; animation-delay: 0.6s; }
-.particle-8 { --spray-x: 95px; --spray-y: -50px; animation-delay: 0.7s; }
-.particle-9 { --spray-x: 115px; --spray-y: -20px; animation-delay: 0.8s; }
-.particle-10 { --spray-x: 85px; --spray-y: -65px; animation-delay: 0.9s; }
-.particle-11 { --spray-x: 125px; --spray-y: -30px; animation-delay: 1s; }
-.particle-12 { --spray-x: 105px; --spray-y: -45px; animation-delay: 1.1s; }
-.particle-13 { --spray-x: 135px; --spray-y: -25px; animation-delay: 1.2s; }
-.particle-14 { --spray-x: 70px; --spray-y: -40px; animation-delay: 1.3s; }
-.particle-15 { --spray-x: 150px; --spray-y: -35px; animation-delay: 1.4s; }
-.particle-16 { --spray-x: 100px; --spray-y: -55px; animation-delay: 1.5s; }
-.particle-17 { --spray-x: 120px; --spray-y: -20px; animation-delay: 1.6s; }
-.particle-18 { --spray-x: 80px; --spray-y: -45px; animation-delay: 1.7s; }
-.particle-19 { --spray-x: 140px; --spray-y: -50px; animation-delay: 1.8s; }
-.particle-20 { --spray-x: 110px; --spray-y: -60px; animation-delay: 1.9s; }
-
-/* Ambergris formation */
-.ambergris-formation {
+/* Chemical Reaction Visualization */
+.reaction-container {
   position: absolute;
-  top: 40%;
+  top: 70%;
   left: 20%;
-  width: 200px;
-  height: 100px;
+  width: 60%;
+  height: 25%;
 }
 
-.whale-silhouette {
-  width: 150px;
+.molecule-structure {
+  position: absolute;
+  width: 60px;
   height: 60px;
-  background: #333;
-  border-radius: 50px 10px 50px 10px;
-  position: relative;
   opacity: 0;
-  animation: fadeIn 1s ease 2.5s forwards;
 }
 
-.whale-silhouette::before {
-  content: '';
+.atom {
   position: absolute;
-  right: -20px;
-  top: 20px;
-  width: 0;
-  height: 0;
-  border-left: 30px solid #333;
-  border-top: 10px solid transparent;
-  border-bottom: 10px solid transparent;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #4CAF50, #2E7D32);
+  box-shadow: 0 0 10px rgba(76, 175, 80, 0.8);
 }
 
-.ambergris-chunks {
+.bond {
   position: absolute;
-  bottom: -30px;
-  left: 20px;
-  width: 100px;
-  height: 40px;
+  width: 30px;
+  height: 2px;
+  background: #ffd700;
+  box-shadow: 0 0 5px rgba(255, 215, 0, 0.8);
 }
 
-.chunk {
+/* Molecule positions and animations */
+.molecule-1 { top: 20%; left: 10%; animation: moleculeFloat 2s ease-in-out infinite; }
+.molecule-2 { top: 40%; left: 30%; animation: moleculeFloat 2s ease-in-out infinite 0.5s; }
+.molecule-3 { top: 60%; left: 50%; animation: moleculeFloat 2s ease-in-out infinite 1s; }
+.molecule-4 { top: 30%; left: 70%; animation: moleculeFloat 2s ease-in-out infinite 1.5s; }
+
+@keyframes moleculeFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(180deg); }
+}
+
+/* Explosion Effect at the End */
+.explosion-container {
   position: absolute;
-  width: 15px;
-  height: 15px;
-  background: #8d6e63;
-  border-radius: 3px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  height: 200px;
   opacity: 0;
-  animation: chunkAppear 0.5s ease forwards;
 }
 
-.chunk-1 { left: 0; animation-delay: 3s; }
-.chunk-2 { left: 20px; animation-delay: 3.2s; }
-.chunk-3 { left: 40px; animation-delay: 3.4s; }
-.chunk-4 { left: 60px; animation-delay: 3.6s; }
-.chunk-5 { left: 15px; top: 20px; animation-delay: 3.8s; }
-.chunk-6 { left: 35px; top: 20px; animation-delay: 4s; }
-
-/* Reveal curtain */
-.reveal-curtain {
+.explosion-particle {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
+  width: 8px;
+  height: 8px;
+  background: radial-gradient(circle, #ffd700, #ff6b35);
+  border-radius: 50%;
 }
 
-.curtain-left,
-.curtain-right {
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(135deg, #1a237e, #0a0a2e);
-  transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+.explosion-container.active .explosion-particle {
+  animation: explode 1.5s ease-out forwards;
 }
 
-.reveal-curtain.open .curtain-left {
-  transform: translateX(-100%);
+@keyframes explode {
+  0% {
+    opacity: 1;
+    transform: scale(1) translate(0, 0);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.2) translate(var(--x), var(--y));
+  }
 }
 
-.reveal-curtain.open .curtain-right {
-  transform: translateX(100%);
+/* Generate random explosion directions */
+.particle-1 { --x: 100px; --y: -80px; }
+.particle-2 { --x: -90px; --y: -70px; }
+.particle-3 { --x: 80px; --y: 60px; }
+.particle-4 { --x: -110px; --y: 90px; }
+.particle-5 { --x: 0px; --y: -120px; }
+.particle-6 { --x: 0px; --y: 110px; }
+.particle-7 { --x: 130px; --y: 0px; }
+.particle-8 { --x: -120px; --y: 0px; }
+.particle-9 { --x: 70px; --y: -100px; }
+.particle-10 { --x: -85px; --y: 95px; }
+
+/* 3D Reveal Chamber */
+.reveal-chamber {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) perspective(800px) rotateX(15deg);
+  width: 400px;
+  height: 300px;
+  background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+  border-radius: 20px;
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  transform-style: preserve-3d;
 }
 
-/* Project title reveal */
+.reveal-chamber.active {
+  animation: chamberReveal 2s ease-out forwards;
+}
+
+@keyframes chamberReveal {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) perspective(800px) rotateX(90deg) scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) perspective(800px) rotateX(15deg) scale(1);
+  }
+}
+
 .project-reveal {
   position: absolute;
   top: 50%;
@@ -312,20 +292,51 @@
   transform: translate(-50%, -50%);
   text-align: center;
   opacity: 0;
-  animation: titleReveal 1.5s ease 3.2s forwards;
+  z-index: 10;
+}
+
+.project-reveal.active {
+  animation: titleSuperReveal 2s ease-out forwards;
 }
 
 .project-title {
   font-size: 4rem;
   color: #ffd700;
   margin-bottom: 1rem;
-  text-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+  text-shadow: 
+    0 0 30px rgba(255, 215, 0, 0.8),
+    0 0 60px rgba(255, 215, 0, 0.4);
+  background: linear-gradient(45deg, #ffd700, #ffed4e, #ffd700);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 3s ease-in-out infinite;
 }
 
 .project-subtitle {
   font-size: 1.5rem;
   color: #ffffff;
   text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+@keyframes shimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes titleSuperReveal {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0) rotateY(180deg);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translate(-50%, -50%) scale(1.2) rotateY(90deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1) rotateY(0deg);
+  }
 }
 
 /* Animations */
@@ -337,33 +348,6 @@
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes chunkAppear {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes titleReveal {
-  from {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.8);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
   }
 }
 
@@ -381,13 +365,13 @@
     font-size: 1.2rem;
   }
   
-  .molecules-container {
-    left: 2%;
-    width: 96%;
+  .domino {
+    width: 60px;
+    height: 90px;
   }
   
-  .molecule {
-    width: 40px;
-    height: 40px;
+  .reveal-chamber {
+    width: 300px;
+    height: 200px;
   }
 }

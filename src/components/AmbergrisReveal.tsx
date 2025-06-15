@@ -16,48 +16,80 @@ export function AmbergrisReveal({ onRevealComplete }: AmbergrisRevealProps) {
 
     const timeouts: NodeJS.Timeout[] = [];
 
-    // Start the domino effect animation - faster
+    // Start the EPIC domino chain reaction
     timeouts.push(setTimeout(() => {
-      const molecules = document.querySelectorAll('.molecule');
-      if (molecules.length > 0) {
-        molecules.forEach((molecule, index) => {
-          timeouts.push(setTimeout(() => {
-            molecule.classList.add('fall');
-          }, index * 80)); // Reduced from 150ms to 80ms
-        });
-      }
-    }, 300)); // Reduced from 500ms to 300ms
+      const dominoes = document.querySelectorAll('.domino');
+      
+      dominoes.forEach((domino, index) => {
+        timeouts.push(setTimeout(() => {
+          // Add energy wave effect
+          const energyWave = document.createElement('div');
+          energyWave.className = 'energy-wave active';
+          energyWave.style.left = `${domino.getBoundingClientRect().left + 40}px`;
+          energyWave.style.top = `${domino.getBoundingClientRect().top + 60}px`;
+          document.body.appendChild(energyWave);
+          
+          // Make domino fall
+          domino.classList.add('fall');
+          
+          // Remove energy wave after animation
+          setTimeout(() => {
+            if (document.body.contains(energyWave)) {
+              document.body.removeChild(energyWave);
+            }
+          }, 600);
+          
+        }, index * 120); // Faster chain reaction
+      });
+    }, 500));
 
-    // Start the perfume bottle spray effect - faster
+    // Start molecular reactions after dominoes
     timeouts.push(setTimeout(() => {
-      const spray = document.querySelector('.spray-effect');
-      if (spray) {
-        spray.classList.add('active');
-      }
-    }, 1200)); // Reduced from 2000ms to 1200ms
+      const molecules = document.querySelectorAll('.molecule-structure');
+      molecules.forEach((molecule, index) => {
+        timeouts.push(setTimeout(() => {
+          (molecule as HTMLElement).style.opacity = '1';
+          (molecule as HTMLElement).style.animation = `moleculeFloat 2s ease-in-out infinite ${index * 0.5}s`;
+        }, index * 200));
+      });
+    }, 3000));
 
-    // Reveal the main content - curtains open faster
+    // Trigger explosion effect
     timeouts.push(setTimeout(() => {
-      const curtain = document.querySelector('.reveal-curtain');
-      if (curtain) {
-        curtain.classList.add('open');
+      const explosion = document.querySelector('.explosion-container');
+      if (explosion) {
+        explosion.classList.add('active');
       }
-    }, 2200)); // Curtains start opening at 2200ms
+    }, 4500));
 
-    // Start fade out AFTER project title is visible for a while
+    // Reveal the 3D chamber
+    timeouts.push(setTimeout(() => {
+      const chamber = document.querySelector('.reveal-chamber');
+      if (chamber) {
+        chamber.classList.add('active');
+      }
+    }, 6000));
+
+    // Final title reveal
+    timeouts.push(setTimeout(() => {
+      const projectReveal = document.querySelector('.project-reveal');
+      if (projectReveal) {
+        projectReveal.classList.add('active');
+      }
+    }, 7000));
+
+    // Start fade out after everything is done
     timeouts.push(setTimeout(() => {
       setFadingOut(true);
-      // Complete the reveal after fade out finishes
       setTimeout(() => {
         onRevealComplete();
-      }, 1000); // 1 second fade out
-    }, 6000)); // Allow 2.8 seconds for project title to be visible (3200ms curtain + 2800ms display time)
+      }, 1000);
+    }, 10000));
 
-    // Cleanup function - only clear if component unmounts, not on re-renders
     return () => {
       timeouts.forEach(timeout => clearTimeout(timeout));
     };
-  }, [animationStarted]);
+  }, [animationStarted, onRevealComplete]);
 
   const startReveal = () => {
     setShowTrigger(false);
@@ -68,58 +100,46 @@ export function AmbergrisReveal({ onRevealComplete }: AmbergrisRevealProps) {
     <div className={`ambergris-reveal-container ${fadingOut ? 'fade-out' : ''}`}>
       {showTrigger && (
         <div className="trigger-section">
-          <h1 className="reveal-title">Are you ready for the reveal?</h1>
+          <h1 className="reveal-title">Ready for the Ultimate Chain Reaction?</h1>
           <button className="reveal-trigger-btn" onClick={startReveal}>
-            Begin the Journey
+            Trigger the Domino Effect
           </button>
         </div>
       )}
       
       {animationStarted && (
         <div className="animation-container">
-          {/* Molecular domino effect */}
-          <div className="molecules-container">
-            {[...Array(12)].map((_, i) => (
-              <div key={i} className={`molecule molecule-${i + 1}`}>
-                <div className="molecule-core"></div>
-                <div className="molecule-bonds"></div>
+          {/* Epic Domino Chain */}
+          <div className="domino-chain">
+            {[...Array(18)].map((_, i) => (
+              <div key={i} className={`domino domino-${i + 1}`}></div>
+            ))}
+          </div>
+
+          {/* Chemical Reaction Molecules */}
+          <div className="reaction-container">
+            {[...Array(4)].map((_, i) => (
+              <div key={i} className={`molecule-structure molecule-${i + 1}`}>
+                <div className="atom" style={{top: '0px', left: '0px'}}></div>
+                <div className="atom" style={{top: '20px', left: '40px'}}></div>
+                <div className="bond" style={{top: '10px', left: '15px', transform: 'rotate(45deg)'}}></div>
               </div>
             ))}
           </div>
 
-          {/* Perfume bottle and spray */}
-          <div className="perfume-bottle">
-            <div className="bottle-body"></div>
-            <div className="bottle-cap"></div>
-            <div className="spray-nozzle"></div>
-          </div>
-
-          <div className="spray-effect">
-            {[...Array(20)].map((_, i) => (
-              <div key={i} className={`spray-particle particle-${i + 1}`}></div>
+          {/* Explosion Effect */}
+          <div className="explosion-container">
+            {[...Array(10)].map((_, i) => (
+              <div key={i} className={`explosion-particle particle-${i + 1}`}></div>
             ))}
           </div>
 
-          {/* Ambergris formation animation */}
-          <div className="ambergris-formation">
-            <div className="whale-silhouette"></div>
-            <div className="ambergris-chunks">
-              {[...Array(6)].map((_, i) => (
-                <div key={i} className={`chunk chunk-${i + 1}`}></div>
-              ))}
+          {/* 3D Reveal Chamber */}
+          <div className="reveal-chamber">
+            <div className="project-reveal">
+              <h2 className="project-title">Synthesis of Ambergris</h2>
+              <p className="project-subtitle">The Future of Sustainable Perfumery</p>
             </div>
-          </div>
-
-          {/* Reveal curtain */}
-          <div className="reveal-curtain">
-            <div className="curtain-left"></div>
-            <div className="curtain-right"></div>
-          </div>
-
-          {/* Project title reveal */}
-          <div className="project-reveal">
-            <h2 className="project-title">Synthesis of Ambergris</h2>
-            <p className="project-subtitle">The Future of Sustainable Perfumery</p>
           </div>
         </div>
       )}
