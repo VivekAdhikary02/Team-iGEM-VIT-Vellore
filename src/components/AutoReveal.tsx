@@ -393,7 +393,7 @@ export const AutoReveal: React.FC<AutoRevealProps> = ({ onComplete }) => {
             <circle cx="0" cy="0" r="4" fill="#000000" />
           </g>
           <circle className="submit-btn-circle" cx="0" cy="0" r="3" stroke="none" fill="#000" />
-          <path className="submit-btn-connector" d=""></path>
+          <path className="submit-btn-connector" d="" stroke="#000" strokeWidth="2" fill="none" />
         </g>
 
         <g className="spray-hand-container">
