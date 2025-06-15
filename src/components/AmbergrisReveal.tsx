@@ -40,13 +40,19 @@ export function AmbergrisReveal({ onRevealComplete }: AmbergrisRevealProps) {
       const curtain = document.querySelector('.reveal-curtain');
       if (curtain) {
         curtain.classList.add('open');
+        
+        // Listen for the curtain animation to complete
+        const curtainLeft = curtain.querySelector('.curtain-left');
+        if (curtainLeft) {
+          curtainLeft.addEventListener('transitionend', () => {
+            // Wait a bit more to ensure everything is settled
+            setTimeout(() => {
+              onRevealComplete();
+            }, 500);
+          }, { once: true });
+        }
       }
     }, 2200)); // Reduced from 3500ms to 2200ms
-
-    // Complete the reveal - wait for curtain animation to fully complete
-    timeouts.push(setTimeout(() => {
-      onRevealComplete();
-    }, 3400)); // 2200ms (curtain start) + 1000ms (curtain duration) + 200ms buffer
 
     // Cleanup function - only clear if component unmounts, not on re-renders
     return () => {
