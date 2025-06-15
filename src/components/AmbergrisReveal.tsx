@@ -17,11 +17,11 @@ export function AmbergrisReveal({ onRevealComplete }: AmbergrisRevealProps) {
     const timeouts: NodeJS.Timeout[] = [];
 
     // Start the EPIC domino chain reaction
-    timeouts.push(setTimeout(() => {
+    const dominoTimeout = setTimeout(() => {
       const dominoes = document.querySelectorAll('.domino');
       
       dominoes.forEach((domino, index) => {
-        timeouts.push(setTimeout(() => {
+        const dominoFallTimeout = setTimeout(() => {
           // Add energy wave effect
           const energyWave = document.createElement('div');
           energyWave.className = 'energy-wave active';
@@ -33,58 +33,68 @@ export function AmbergrisReveal({ onRevealComplete }: AmbergrisRevealProps) {
           domino.classList.add('fall');
           
           // Remove energy wave after animation
-          setTimeout(() => {
+          const waveCleanupTimeout = setTimeout(() => {
             if (document.body.contains(energyWave)) {
               document.body.removeChild(energyWave);
             }
           }, 600);
+          timeouts.push(waveCleanupTimeout);
           
         }, index * 120); // Faster chain reaction
+        timeouts.push(dominoFallTimeout);
       });
-    }, 500));
+    }, 500);
+    timeouts.push(dominoTimeout);
 
     // Start molecular reactions after dominoes
-    timeouts.push(setTimeout(() => {
+    const moleculeTimeout = setTimeout(() => {
       const molecules = document.querySelectorAll('.molecule-structure');
       molecules.forEach((molecule, index) => {
-        timeouts.push(setTimeout(() => {
+        const moleculeAnimTimeout = setTimeout(() => {
           (molecule as HTMLElement).style.opacity = '1';
           (molecule as HTMLElement).style.animation = `moleculeFloat 2s ease-in-out infinite ${index * 0.5}s`;
-        }, index * 200));
+        }, index * 200);
+        timeouts.push(moleculeAnimTimeout);
       });
-    }, 3000));
+    }, 3000);
+    timeouts.push(moleculeTimeout);
 
     // Trigger explosion effect
-    timeouts.push(setTimeout(() => {
+    const explosionTimeout = setTimeout(() => {
       const explosion = document.querySelector('.explosion-container');
       if (explosion) {
         explosion.classList.add('active');
       }
-    }, 4500));
+    }, 4500);
+    timeouts.push(explosionTimeout);
 
     // Reveal the 3D chamber
-    timeouts.push(setTimeout(() => {
+    const chamberTimeout = setTimeout(() => {
       const chamber = document.querySelector('.reveal-chamber');
       if (chamber) {
         chamber.classList.add('active');
       }
-    }, 6000));
+    }, 6000);
+    timeouts.push(chamberTimeout);
 
     // Final title reveal
-    timeouts.push(setTimeout(() => {
+    const titleTimeout = setTimeout(() => {
       const projectReveal = document.querySelector('.project-reveal');
       if (projectReveal) {
         projectReveal.classList.add('active');
       }
-    }, 7000));
+    }, 7000);
+    timeouts.push(titleTimeout);
 
     // Start fade out after everything is done
-    timeouts.push(setTimeout(() => {
+    const fadeTimeout = setTimeout(() => {
       setFadingOut(true);
-      setTimeout(() => {
+      const completeTimeout = setTimeout(() => {
         onRevealComplete();
       }, 1000);
-    }, 10000));
+      timeouts.push(completeTimeout);
+    }, 10000);
+    timeouts.push(fadeTimeout);
 
     return () => {
       timeouts.forEach(timeout => clearTimeout(timeout));
