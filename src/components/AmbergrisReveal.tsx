@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './AmbergrisReveal.css';
 
 interface AmbergrisRevealProps {
@@ -10,36 +10,47 @@ export function AmbergrisReveal({ onRevealComplete }: AmbergrisRevealProps) {
   const [showTrigger, setShowTrigger] = useState(true);
   const [animationStarted, setAnimationStarted] = useState(false);
 
+  useEffect(() => {
+    if (!animationStarted) return;
+
+    const timeouts: NodeJS.Timeout[] = [];
+
+    // Start the domino effect animation
+    timeouts.push(setTimeout(() => {
+      const molecules = document.querySelectorAll('.molecule');
+      molecules.forEach((molecule, index) => {
+        timeouts.push(setTimeout(() => {
+          molecule.classList.add('fall');
+        }, index * 150));
+      });
+    }, 500));
+
+    // Start the perfume bottle spray effect
+    timeouts.push(setTimeout(() => {
+      const spray = document.querySelector('.spray-effect');
+      spray?.classList.add('active');
+    }, 2000));
+
+    // Reveal the main content
+    timeouts.push(setTimeout(() => {
+      const curtain = document.querySelector('.reveal-curtain');
+      curtain?.classList.add('open');
+    }, 3500));
+
+    // Complete the reveal
+    timeouts.push(setTimeout(() => {
+      onRevealComplete();
+    }, 5000));
+
+    // Cleanup function to clear timeouts if component unmounts
+    return () => {
+      timeouts.forEach(timeout => clearTimeout(timeout));
+    };
+  }, [animationStarted, onRevealComplete]);
+
   const startReveal = () => {
     setShowTrigger(false);
     setAnimationStarted(true);
-    
-    // Start the domino effect animation
-    setTimeout(() => {
-      const molecules = document.querySelectorAll('.molecule');
-      molecules.forEach((molecule, index) => {
-        setTimeout(() => {
-          molecule.classList.add('fall');
-        }, index * 150);
-      });
-    }, 500);
-
-    // Start the perfume bottle spray effect
-    setTimeout(() => {
-      const spray = document.querySelector('.spray-effect');
-      spray?.classList.add('active');
-    }, 2000);
-
-    // Reveal the main content
-    setTimeout(() => {
-      const curtain = document.querySelector('.reveal-curtain');
-      curtain?.classList.add('open');
-    }, 3500);
-
-    // Complete the reveal
-    setTimeout(() => {
-      onRevealComplete();
-    }, 5000);
   };
 
   return (
