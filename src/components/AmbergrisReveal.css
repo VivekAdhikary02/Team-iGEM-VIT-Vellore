@@ -306,6 +306,7 @@
     0 0 80px rgba(255, 215, 0, 0.4);
   background: linear-gradient(45deg, #ffd700, #ffed4e, #ffc107, #ffd700);
   background-size: 400% 400%;
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: gradientShift 4s ease-in-out infinite;
