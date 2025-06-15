@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './AmbergrisReveal.css';
 
 interface AmbergrisRevealProps {
@@ -9,96 +9,148 @@ interface AmbergrisRevealProps {
 export function AmbergrisReveal({ onRevealComplete }: AmbergrisRevealProps) {
   const [showTrigger, setShowTrigger] = useState(true);
   const [animationStarted, setAnimationStarted] = useState(false);
-  const [fadingOut, setFadingOut] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!animationStarted) return;
+    if (!animationStarted || !containerRef.current) return;
 
-    const timeouts: NodeJS.Timeout[] = [];
+    // Import GSAP dynamically for better performance
+    import('gsap').then(({ gsap }) => {
+      const tl = gsap.timeline({
+        onComplete: () => {
+          setTimeout(() => {
+            onRevealComplete();
+          }, 1000);
+        }
+      });
 
-    // Start the EPIC domino chain reaction
-    const dominoTimeout = setTimeout(() => {
-      const dominoes = document.querySelectorAll('.domino');
+      // Phase 1: Domino Setup and Initial Push
+      tl.set('.domino', { 
+        transformOrigin: 'bottom center',
+        rotationZ: 0,
+        opacity: 1
+      })
+      .set('.energy-wave', { scale: 0, opacity: 0 })
+      .set('.spark', { scale: 0, opacity: 0 })
+      .set('.reaction-container', { opacity: 0 })
+      .set('.explosion-container', { opacity: 0 })
+      .set('.reveal-chamber', { opacity: 0, scale: 0.5, rotationY: 90 });
+
+      // Phase 2: The Epic Domino Chain Reaction
+      const dominoes = containerRef.current.querySelectorAll('.domino');
       
       dominoes.forEach((domino, index) => {
-        const dominoFallTimeout = setTimeout(() => {
-          // Add energy wave effect
-          const energyWave = document.createElement('div');
-          energyWave.className = 'energy-wave active';
-          energyWave.style.left = `${domino.getBoundingClientRect().left + 40}px`;
-          energyWave.style.top = `${domino.getBoundingClientRect().top + 60}px`;
-          document.body.appendChild(energyWave);
-          
-          // Make domino fall
-          domino.classList.add('fall');
-          
-          // Remove energy wave after animation
-          const waveCleanupTimeout = setTimeout(() => {
-            if (document.body.contains(energyWave)) {
-              document.body.removeChild(energyWave);
-            }
-          }, 600);
-          timeouts.push(waveCleanupTimeout);
-          
-        }, index * 120); // Faster chain reaction
-        timeouts.push(dominoFallTimeout);
+        const delay = index * 0.15; // Perfectly timed cascade
+        
+        // Energy pulse before fall
+        tl.to(`.energy-wave-${index}`, {
+          duration: 0.3,
+          scale: 3,
+          opacity: 0.8,
+          ease: "power2.out"
+        }, delay)
+        .to(`.energy-wave-${index}`, {
+          duration: 0.2,
+          scale: 5,
+          opacity: 0,
+          ease: "power2.out"
+        }, delay + 0.1)
+        
+        // Domino fall with realistic physics
+        .to(domino, {
+          duration: 0.6,
+          rotationZ: 85 + (index % 2 === 0 ? 5 : -5), // Slight variation
+          ease: "power3.out"
+        }, delay + 0.1)
+        
+        // Impact sparks
+        .to(`.spark-${index}`, {
+          duration: 0.2,
+          scale: 2,
+          opacity: 1,
+          ease: "back.out(1.7)"
+        }, delay + 0.3)
+        .to(`.spark-${index}`, {
+          duration: 0.3,
+          scale: 0,
+          opacity: 0,
+          ease: "power2.in"
+        }, delay + 0.5);
       });
-    }, 500);
-    timeouts.push(dominoTimeout);
 
-    // Start molecular reactions after dominoes
-    const moleculeTimeout = setTimeout(() => {
-      const molecules = document.querySelectorAll('.molecule-structure');
-      molecules.forEach((molecule, index) => {
-        const moleculeAnimTimeout = setTimeout(() => {
-          (molecule as HTMLElement).style.opacity = '1';
-          (molecule as HTMLElement).style.animation = `moleculeFloat 2s ease-in-out infinite ${index * 0.5}s`;
-        }, index * 200);
-        timeouts.push(moleculeAnimTimeout);
-      });
-    }, 3000);
-    timeouts.push(moleculeTimeout);
+      // Phase 3: Chemical Reaction Chain
+      tl.to('.reaction-container', {
+        duration: 0.8,
+        opacity: 1,
+        ease: "power2.out"
+      }, 3.5)
+      .to('.molecule', {
+        duration: 2,
+        rotation: 360,
+        scale: 1.2,
+        ease: "power1.inOut",
+        stagger: 0.2
+      }, 3.8)
+      .to('.bond', {
+        duration: 1.5,
+        scaleX: 1.5,
+        transformOrigin: "center",
+        ease: "elastic.out(1, 0.3)",
+        stagger: 0.1
+      }, 4);
 
-    // Trigger explosion effect
-    const explosionTimeout = setTimeout(() => {
-      const explosion = document.querySelector('.explosion-container');
-      if (explosion) {
-        explosion.classList.add('active');
-      }
-    }, 4500);
-    timeouts.push(explosionTimeout);
+      // Phase 4: Explosive Transformation
+      tl.to('.explosion-container', {
+        duration: 0.5,
+        opacity: 1,
+        scale: 1,
+        ease: "back.out(1.7)"
+      }, 5.5)
+      .to('.explosion-particle', {
+        duration: 2,
+        x: () => gsap.utils.random(-200, 200),
+        y: () => gsap.utils.random(-200, 200),
+        rotation: () => gsap.utils.random(0, 360),
+        scale: () => gsap.utils.random(0.5, 2),
+        opacity: 0,
+        ease: "power2.out",
+        stagger: 0.05
+      }, 6);
 
-    // Reveal the 3D chamber
-    const chamberTimeout = setTimeout(() => {
-      const chamber = document.querySelector('.reveal-chamber');
-      if (chamber) {
-        chamber.classList.add('active');
-      }
-    }, 6000);
-    timeouts.push(chamberTimeout);
+      // Phase 5: Grand Reveal with 3D Chamber
+      tl.to('.reveal-chamber', {
+        duration: 1.5,
+        opacity: 1,
+        scale: 1,
+        rotationY: 0,
+        rotationX: 0,
+        ease: "power3.out"
+      }, 7)
+      .to('.project-title', {
+        duration: 1,
+        scale: 1.1,
+        color: '#ffd700',
+        textShadow: '0 0 30px rgba(255,215,0,0.8)',
+        ease: "elastic.out(1, 0.3)"
+      }, 8)
+      .to('.project-subtitle', {
+        duration: 0.8,
+        opacity: 1,
+        y: 0,
+        ease: "back.out(1.7)"
+      }, 8.5)
+      
+      // Final fade out
+      .to('.ambergris-reveal-container', {
+        duration: 1,
+        opacity: 0,
+        ease: "power2.inOut"
+      }, 11);
 
-    // Final title reveal
-    const titleTimeout = setTimeout(() => {
-      const projectReveal = document.querySelector('.project-reveal');
-      if (projectReveal) {
-        projectReveal.classList.add('active');
-      }
-    }, 7000);
-    timeouts.push(titleTimeout);
-
-    // Start fade out after everything is done
-    const fadeTimeout = setTimeout(() => {
-      setFadingOut(true);
-      const completeTimeout = setTimeout(() => {
-        onRevealComplete();
-      }, 1000);
-      timeouts.push(completeTimeout);
-    }, 10000);
-    timeouts.push(fadeTimeout);
-
-    return () => {
-      timeouts.forEach(timeout => clearTimeout(timeout));
-    };
+      return () => {
+        tl.kill();
+      };
+    });
   }, [animationStarted, onRevealComplete]);
 
   const startReveal = () => {
@@ -107,48 +159,64 @@ export function AmbergrisReveal({ onRevealComplete }: AmbergrisRevealProps) {
   };
 
   return (
-    <div className={`ambergris-reveal-container ${fadingOut ? 'fade-out' : ''}`}>
+    <div ref={containerRef} className="ambergris-reveal-container">
       {showTrigger && (
         <div className="trigger-section">
           <h1 className="reveal-title">Ready for the Ultimate Chain Reaction?</h1>
           <button className="reveal-trigger-btn" onClick={startReveal}>
-            Trigger the Domino Effect
+            Trigger the Molecular Cascade
           </button>
         </div>
       )}
       
       {animationStarted && (
         <div className="animation-container">
-          {/* Epic Domino Chain */}
-          <div className="domino-chain">
-            {[...Array(18)].map((_, i) => (
-              <div key={i} className={`domino domino-${i + 1}`}></div>
-            ))}
-          </div>
-
-          {/* Chemical Reaction Molecules */}
-          <div className="reaction-container">
-            {[...Array(4)].map((_, i) => (
-              <div key={i} className={`molecule-structure molecule-${i + 1}`}>
-                <div className="atom" style={{top: '0px', left: '0px'}}></div>
-                <div className="atom" style={{top: '20px', left: '40px'}}></div>
-                <div className="bond" style={{top: '10px', left: '15px', transform: 'rotate(45deg)'}}></div>
+          {/* Perfect Domino Chain */}
+          <div className="domino-field">
+            {[...Array(15)].map((_, i) => (
+              <div key={i} className="domino-group">
+                <div className={`domino domino-${i + 1}`}>
+                  <div className="domino-face"></div>
+                  <div className="domino-dots">
+                    <div className="dot"></div>
+                    <div className="dot"></div>
+                  </div>
+                </div>
+                <div className={`energy-wave energy-wave-${i}`}></div>
+                <div className={`spark spark-${i}`}></div>
               </div>
             ))}
           </div>
 
-          {/* Explosion Effect */}
+          {/* Chemical Reaction Visualization */}
+          <div className="reaction-container">
+            {[...Array(6)].map((_, i) => (
+              <div key={i} className={`molecule-group molecule-group-${i + 1}`}>
+                <div className="molecule">
+                  <div className="atom atom-center"></div>
+                  <div className="atom atom-outer-1"></div>
+                  <div className="atom atom-outer-2"></div>
+                  <div className="bond bond-1"></div>
+                  <div className="bond bond-2"></div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Explosive Transformation */}
           <div className="explosion-container">
-            {[...Array(10)].map((_, i) => (
+            {[...Array(20)].map((_, i) => (
               <div key={i} className={`explosion-particle particle-${i + 1}`}></div>
             ))}
           </div>
 
           {/* 3D Reveal Chamber */}
           <div className="reveal-chamber">
-            <div className="project-reveal">
-              <h2 className="project-title">Synthesis of Ambergris</h2>
-              <p className="project-subtitle">The Future of Sustainable Perfumery</p>
+            <div className="chamber-inner">
+              <div className="project-reveal">
+                <h2 className="project-title">Synthesis of Ambergris</h2>
+                <p className="project-subtitle">The Future of Sustainable Perfumery</p>
+              </div>
             </div>
           </div>
         </div>
