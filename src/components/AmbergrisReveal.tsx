@@ -15,38 +15,38 @@ export function AmbergrisReveal({ onRevealComplete }: AmbergrisRevealProps) {
 
     const timeouts: NodeJS.Timeout[] = [];
 
-    // Start the domino effect animation
+    // Start the domino effect animation - faster
     timeouts.push(setTimeout(() => {
       const molecules = document.querySelectorAll('.molecule');
       if (molecules.length > 0) {
         molecules.forEach((molecule, index) => {
           timeouts.push(setTimeout(() => {
             molecule.classList.add('fall');
-          }, index * 150));
+          }, index * 80)); // Reduced from 150ms to 80ms
         });
       }
-    }, 500));
+    }, 300)); // Reduced from 500ms to 300ms
 
-    // Start the perfume bottle spray effect
+    // Start the perfume bottle spray effect - faster
     timeouts.push(setTimeout(() => {
       const spray = document.querySelector('.spray-effect');
       if (spray) {
         spray.classList.add('active');
       }
-    }, 2000));
+    }, 1200)); // Reduced from 2000ms to 1200ms
 
-    // Reveal the main content - this is where the curtains open
+    // Reveal the main content - curtains open faster
     timeouts.push(setTimeout(() => {
       const curtain = document.querySelector('.reveal-curtain');
       if (curtain) {
         curtain.classList.add('open');
       }
-    }, 3500));
+    }, 2200)); // Reduced from 3500ms to 2200ms
 
-    // Complete the reveal - give more time for curtain animation
+    // Complete the reveal - wait for curtain animation to fully complete
     timeouts.push(setTimeout(() => {
       onRevealComplete();
-    }, 6000)); // Increased from 5000 to 6000ms
+    }, 4200)); // Reduced total time and ensured curtains finish (2200ms + 1500ms curtain animation + 500ms buffer)
 
     // Cleanup function - only clear if component unmounts, not on re-renders
     return () => {
