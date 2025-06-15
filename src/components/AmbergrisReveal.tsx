@@ -46,7 +46,7 @@ export function AmbergrisReveal({ onRevealComplete }: AmbergrisRevealProps) {
     // Complete the reveal after curtain animation finishes
     timeouts.push(setTimeout(() => {
       onRevealComplete();
-    }, 3200)); // 2200ms + 1000ms (curtain duration) = 3200ms total
+    }, 3500)); // 2200ms + 1000ms (curtain duration) + 300ms buffer = 3500ms total
 
     // Cleanup function - only clear if component unmounts, not on re-renders
     return () => {
