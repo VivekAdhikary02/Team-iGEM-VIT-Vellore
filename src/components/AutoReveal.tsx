@@ -322,10 +322,70 @@ export const AutoReveal: React.FC<AutoRevealProps> = ({ onComplete }) => {
       emailEl.value = "test@vit.edu";
       checkboxEl.checked = true;
 
+      function animatePullingLine() {
+        const buttonOriginPoint = [260, -76];
+        const btnWidth = 270;
+
+        const deg = (gsap.getProperty(submitBtn, "rotation") - 4) * Math.PI / 180;
+
+        const btnEnd = [
+          buttonOriginPoint[0] - (btnWidth - 20) * Math.cos(deg),
+          buttonOriginPoint[1] - (btnWidth - 20) * Math.sin(deg),
+        ];
+        
+        gsap.set(btnHandlerCircle, {
+          attr: {
+            cx: btnEnd[0],
+            cy: btnEnd[1]
+          }
+        });
+
+        const handle = 7;
+        const r = 10;
+
+        let btnPullLinePath = "M" + (-r - handle) + "," + (250 - (state.pullProgress * 300));
+        btnPullLinePath += "h" + (2 * handle);
+        btnPullLinePath += "h" + (-handle);
+        btnPullLinePath += " V" + (44 - state.pullProgress * 130);
+        const slideAngle = .3 * Math.PI * (1 - .5 * state.pullProgress);
+        const dx = r * Math.cos(slideAngle);
+        const dy = -r * Math.sin(slideAngle);
+        btnPullLinePath += "a" + r + ', ' + r + " 0 0 1 " + (r + dx) + " " + dy;
+        btnPullLinePath += " L" + btnEnd[0] + "," + btnEnd[1];
+
+        gsap.set(btnPullLine, {
+          attr: {
+            d: btnPullLinePath
+          },
+          strokeWidth: 3
+        });
+      }
+
+      function createPullingTimeline() {
+        const tl = gsap.timeline({
+          paused: true,
+          defaults: {
+            ease: "power1.inOut",
+            duration: 1
+          },
+          onUpdate: animatePullingLine
+        });
+
+        tl.to(state, { pullProgress: 1 }, 0)
+          .to(submitBtn, { rotation: 0 }, 0)
+          .to(checkboxPullLine, { attr: { y2: 44 - 130 } }, 0)
+          .to(checkboxPullCircle, { y: 44 - 130 }, 0);
+
+        return tl;
+      }
+
+      const pullingTl = createPullingTimeline();
+
       // Auto-play the animations
       setTimeout(() => {
         gearsTls.forEach(tl => tl.play());
         emailTl.play();
+        pullingTl.play();
       }, 500);
 
       // Auto-complete after 5 seconds
@@ -338,6 +398,7 @@ export const AutoReveal: React.FC<AutoRevealProps> = ({ onComplete }) => {
       return () => {
         gearsTls.forEach(tl => tl.kill());
         emailTl.kill();
+        pullingTl.kill();
       };
     });
   }, [onComplete]);
