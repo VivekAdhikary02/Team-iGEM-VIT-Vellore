@@ -312,7 +312,7 @@
   transform: translate(-50%, -50%);
   text-align: center;
   opacity: 0;
-  animation: titleReveal 1.5s ease 2.5s forwards;
+  animation: titleReveal 1.5s ease 3.2s forwards;
 }
 
 .project-title {
