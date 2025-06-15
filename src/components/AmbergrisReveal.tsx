@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from 'react';
 import './AmbergrisReveal.css';
 
@@ -37,46 +36,48 @@ export function AmbergrisReveal({ onRevealComplete }: AmbergrisRevealProps) {
       .set('.reveal-chamber', { opacity: 0, scale: 0.5, rotationY: 90 });
 
       // Phase 2: The Epic Domino Chain Reaction
-      const dominoes = containerRef.current.querySelectorAll('.domino');
-      
-      dominoes.forEach((domino, index) => {
-        const delay = index * 0.15; // Perfectly timed cascade
-        
-        // Energy pulse before fall
-        tl.to(`.energy-wave-${index}`, {
-          duration: 0.3,
-          scale: 3,
-          opacity: 0.8,
-          ease: "power2.out"
-        }, delay)
-        .to(`.energy-wave-${index}`, {
-          duration: 0.2,
-          scale: 5,
-          opacity: 0,
-          ease: "power2.out"
-        }, delay + 0.1)
-        
-        // Domino fall with realistic physics
-        .to(domino, {
-          duration: 0.6,
-          rotationZ: 85 + (index % 2 === 0 ? 5 : -5), // Slight variation
-          ease: "power3.out"
-        }, delay + 0.1)
-        
-        // Impact sparks
-        .to(`.spark-${index}`, {
-          duration: 0.2,
-          scale: 2,
-          opacity: 1,
-          ease: "back.out(1.7)"
-        }, delay + 0.3)
-        .to(`.spark-${index}`, {
-          duration: 0.3,
-          scale: 0,
-          opacity: 0,
-          ease: "power2.in"
-        }, delay + 0.5);
-      });
+      const dominoes = containerRef.current?.querySelectorAll('.domino');
+
+      if (dominoes) {
+        dominoes.forEach((domino, index) => {
+          const delay = index * 0.15; // Perfectly timed cascade
+
+          // Energy pulse before fall
+          tl.to(`.energy-wave-${index}`, {
+            duration: 0.3,
+            scale: 3,
+            opacity: 0.8,
+            ease: "power2.out"
+          }, delay)
+          .to(`.energy-wave-${index}`, {
+            duration: 0.2,
+            scale: 5,
+            opacity: 0,
+            ease: "power2.out"
+          }, delay + 0.1)
+
+          // Domino fall with realistic physics
+          .to(domino, {
+            duration: 0.6,
+            rotationZ: 85 + (index % 2 === 0 ? 5 : -5), // Slight variation
+            ease: "power3.out"
+          }, delay + 0.1)
+
+          // Impact sparks
+          .to(`.spark-${index}`, {
+            duration: 0.2,
+            scale: 2,
+            opacity: 1,
+            ease: "back.out(1.7)"
+          }, delay + 0.3)
+          .to(`.spark-${index}`, {
+            duration: 0.3,
+            scale: 0,
+            opacity: 0,
+            ease: "power2.in"
+          }, delay + 0.5);
+        });
+      }
 
       // Phase 3: Chemical Reaction Chain
       tl.to('.reaction-container', {
@@ -139,7 +140,7 @@ export function AmbergrisReveal({ onRevealComplete }: AmbergrisRevealProps) {
         y: 0,
         ease: "back.out(1.7)"
       }, 8.5)
-      
+
       // Final fade out
       .to('.ambergris-reveal-container', {
         duration: 1,
@@ -168,7 +169,7 @@ export function AmbergrisReveal({ onRevealComplete }: AmbergrisRevealProps) {
           </button>
         </div>
       )}
-      
+
       {animationStarted && (
         <div className="animation-container">
           {/* Perfect Domino Chain */}
