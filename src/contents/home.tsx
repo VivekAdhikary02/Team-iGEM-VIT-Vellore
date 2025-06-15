@@ -16,7 +16,71 @@ export function Home() {
 
   return (
     <>
+      <div className="row mb-4">
+        <div className="col-12 text-center">
+          <div className="hero-section p-5 rounded" style={{
+            background: 'linear-gradient(135deg, #ffd700, #ffab00)',
+            color: '#1a237e',
+            boxShadow: '0 10px 30px rgba(255, 215, 0, 0.3)'
+          }}>
+            <h1 className="display-4 fw-bold mb-3">VIT iGEM 2024</h1>
+            <h2 className="h3 mb-4">Synthesis of Ambergris</h2>
+            <p className="lead">
+              Revolutionizing the perfume industry through sustainable biotechnology. 
+              Our project aims to synthesize ambergris using engineered microorganisms, 
+              providing an ethical and sustainable alternative to this precious whale-derived ingredient.
+            </p>
+          </div>
+        </div>
+      </div>
+      
       <div className="row">
+        <div className="col">
+          <h2>Our Revolutionary Project</h2>
+          <hr />
+          <p>
+            Ambergris, often called "floating gold," is one of the most valuable ingredients in luxury perfumery. 
+            Traditionally sourced from sperm whales, this rare substance has been prized for centuries for its 
+            unique ability to enhance and fix fragrances. Our team is pioneering a synthetic biology approach 
+            to produce ambergris sustainably, eliminating the need for whale-derived materials while maintaining 
+            the exceptional quality that makes this ingredient so coveted.
+          </p>
+          <div className="row mt-4">
+            <div className="col-md-4">
+              <div className="card h-100">
+                <div className="card-body text-center">
+                  <h5 className="card-title">🧬 Synthetic Biology</h5>
+                  <p className="card-text">
+                    Engineering microorganisms to produce ambergris compounds through biosynthetic pathways.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="col-md-4">
+              <div className="card h-100">
+                <div className="card-body text-center">
+                  <h5 className="card-title">🌱 Sustainability</h5>
+                  <p className="card-text">
+                    Creating an ethical alternative that protects whale populations while meeting industry demands.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="col-md-4">
+              <div className="card h-100">
+                <div className="card-body text-center">
+                  <h5 className="card-title">🎨 Innovation</h5>
+                  <p className="card-text">
+                    Pushing the boundaries of biotechnology to revolutionize the luxury perfume market.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div className="row mt-4">
         <div className="col">
           <h2>Essential First Steps</h2>
           <hr />
