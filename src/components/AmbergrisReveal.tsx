@@ -44,14 +44,14 @@ export function AmbergrisReveal({ onRevealComplete }: AmbergrisRevealProps) {
       }
     }, 2200)); // Curtains start opening at 2200ms
 
-    // Start fade out after curtain animation finishes
+    // Start fade out AFTER curtain animation fully completes
     timeouts.push(setTimeout(() => {
       setFadingOut(true);
       // Complete the reveal after fade out finishes
       setTimeout(() => {
         onRevealComplete();
       }, 1000); // 1 second fade out
-    }, 3200)); // 2200ms + 1000ms (curtain duration) = 3200ms total
+    }, 3700)); // 2200ms + 1000ms (curtain duration) + 500ms buffer = 3700ms total
 
     // Cleanup function - only clear if component unmounts, not on re-renders
     return () => {
