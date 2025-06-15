@@ -9,6 +9,7 @@ interface AmbergrisRevealProps {
 export function AmbergrisReveal({ onRevealComplete }: AmbergrisRevealProps) {
   const [showTrigger, setShowTrigger] = useState(true);
   const [animationStarted, setAnimationStarted] = useState(false);
+  const [fadingOut, setFadingOut] = useState(false);
 
   useEffect(() => {
     if (!animationStarted) return;
@@ -43,10 +44,14 @@ export function AmbergrisReveal({ onRevealComplete }: AmbergrisRevealProps) {
       }
     }, 2200)); // Curtains start opening at 2200ms
 
-    // Complete the reveal after curtain animation finishes
+    // Start fade out after curtain animation finishes
     timeouts.push(setTimeout(() => {
-      onRevealComplete();
-    }, 3500)); // 2200ms + 1000ms (curtain duration) + 300ms buffer = 3500ms total
+      setFadingOut(true);
+      // Complete the reveal after fade out finishes
+      setTimeout(() => {
+        onRevealComplete();
+      }, 1000); // 1 second fade out
+    }, 3200)); // 2200ms + 1000ms (curtain duration) = 3200ms total
 
     // Cleanup function - only clear if component unmounts, not on re-renders
     return () => {
@@ -60,7 +65,7 @@ export function AmbergrisReveal({ onRevealComplete }: AmbergrisRevealProps) {
   };
 
   return (
-    <div className="ambergris-reveal-container">
+    <div className={`ambergris-reveal-container ${fadingOut ? 'fade-out' : ''}`}>
       {showTrigger && (
         <div className="trigger-section">
           <h1 className="reveal-title">Are you ready for the reveal?</h1>

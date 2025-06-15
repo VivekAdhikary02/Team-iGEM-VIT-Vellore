@@ -8,6 +8,11 @@
   background: linear-gradient(135deg, #0a0a2e, #16213e, #1a237e);
   z-index: 9999;
   overflow: hidden;
+  transition: opacity 1s ease-out;
+}
+
+.ambergris-reveal-container.fade-out {
+  opacity: 0;
 }
 
 .trigger-section {
