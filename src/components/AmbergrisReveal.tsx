@@ -18,31 +18,37 @@ export function AmbergrisReveal({ onRevealComplete }: AmbergrisRevealProps) {
     // Start the domino effect animation
     timeouts.push(setTimeout(() => {
       const molecules = document.querySelectorAll('.molecule');
-      molecules.forEach((molecule, index) => {
-        timeouts.push(setTimeout(() => {
-          molecule.classList.add('fall');
-        }, index * 150));
-      });
+      if (molecules.length > 0) {
+        molecules.forEach((molecule, index) => {
+          timeouts.push(setTimeout(() => {
+            molecule.classList.add('fall');
+          }, index * 150));
+        });
+      }
     }, 500));
 
     // Start the perfume bottle spray effect
     timeouts.push(setTimeout(() => {
       const spray = document.querySelector('.spray-effect');
-      spray?.classList.add('active');
+      if (spray) {
+        spray.classList.add('active');
+      }
     }, 2000));
 
-    // Reveal the main content
+    // Reveal the main content - this is where the curtains open
     timeouts.push(setTimeout(() => {
       const curtain = document.querySelector('.reveal-curtain');
-      curtain?.classList.add('open');
+      if (curtain) {
+        curtain.classList.add('open');
+      }
     }, 3500));
 
-    // Complete the reveal
+    // Complete the reveal - give more time for curtain animation
     timeouts.push(setTimeout(() => {
       onRevealComplete();
-    }, 5000));
+    }, 6000)); // Increased from 5000 to 6000ms
 
-    // Cleanup function to clear timeouts if component unmounts
+    // Cleanup function - only clear if component unmounts, not on re-renders
     return () => {
       timeouts.forEach(timeout => clearTimeout(timeout));
     };
