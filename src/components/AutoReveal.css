@@ -1,3 +1,9 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: sans-serif;
+}
 
 .auto-reveal-container {
   position: fixed;
@@ -5,11 +11,8 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(135deg, #1a237e, #283593, #3949ab);
+  background-color: #FAF9F6;
   z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   opacity: 1;
   transition: opacity 0.5s ease-out;
 }
@@ -19,154 +22,76 @@
   pointer-events: none;
 }
 
-.reveal-content {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.container {
+  position: fixed;
+  top: 38%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-.animated-elements {
-  position: relative;
-  text-align: center;
-}
-
-.spiral-container {
+svg,
+.form-container {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 300px;
-  height: 300px;
 }
 
-.spiral-line {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border: 2px solid #ffd700;
-  border-radius: 50%;
-  opacity: 0.7;
-  animation: spiralRotate 2s linear infinite;
+.form-container {
+  width: 270px;
 }
 
-.spiral-line::before {
-  content: '';
-  position: absolute;
-  top: -2px;
-  left: 50%;
-  width: 4px;
-  height: 4px;
-  background: #ffd700;
-  border-radius: 50%;
-  transform: translateX(-50%);
-  box-shadow: 0 0 10px #ffd700;
-}
-
-@keyframes spiralRotate {
-  0% { transform: rotate(0deg) scale(0.5); opacity: 0; }
-  50% { transform: rotate(180deg) scale(1); opacity: 1; }
-  100% { transform: rotate(360deg) scale(1.2); opacity: 0.3; }
-}
-
-.floating-particles {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+svg {
+  width: 1000px;
   pointer-events: none;
+  stroke-width: 1.2px;
+  stroke: #000000;
+  fill: none;
 }
 
-.particle {
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  background: #ffd700;
-  border-radius: 50%;
-  opacity: 0;
-  animation: floatParticle 3s ease-in-out infinite;
+.form-container .form-row {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 
-.particle:nth-child(1) { top: 20%; left: 10%; }
-.particle:nth-child(2) { top: 30%; left: 80%; }
-.particle:nth-child(3) { top: 60%; left: 15%; }
-.particle:nth-child(4) { top: 70%; left: 85%; }
-.particle:nth-child(5) { top: 40%; left: 90%; }
-.particle:nth-child(6) { top: 80%; left: 20%; }
-.particle:nth-child(7) { top: 15%; left: 60%; }
-.particle:nth-child(8) { top: 85%; left: 70%; }
-
-@keyframes floatParticle {
-  0% { 
-    opacity: 0; 
-    transform: translateY(20px) scale(0.5); 
-  }
-  50% { 
-    opacity: 1; 
-    transform: translateY(-10px) scale(1); 
-    box-shadow: 0 0 15px #ffd700;
-  }
-  100% { 
-    opacity: 0; 
-    transform: translateY(-30px) scale(0.3); 
-  }
+.form-container .form-row input {
+  width: 100%;
+  height: 30px;
+  margin: 0;
+  padding: 5px;
+  outline: none;
+  border: 2px solid #dddddd;
 }
 
-.central-logo {
-  position: relative;
-  z-index: 2;
-  animation: titleReveal 2.5s ease-out forwards;
-  opacity: 0;
+.form-container .form-row input.valid {
+  border-color: #000000;
 }
 
-.reveal-title {
-  font-size: 3.5rem;
-  font-weight: bold;
-  color: #ffd700;
-  margin-bottom: 0.5rem;
-  text-shadow: 
-    0 0 10px rgba(255, 215, 0, 0.5),
-    0 0 20px rgba(255, 215, 0, 0.3);
-  letter-spacing: 2px;
+.form-container .form-row input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  margin: 0 10px 0 0;
+  padding: 0;
+  border: 2px solid #dddddd;
 }
 
-.subtitle {
-  font-size: 1.5rem;
-  color: #ffffff;
-  font-weight: 300;
-  letter-spacing: 1px;
-  opacity: 0.9;
+.form-container .form-row input[type="submit"] {
+  height: 40px;
+  cursor: pointer;
+  border: none;
+  background-color: #eeeeee;
 }
 
-@keyframes titleReveal {
-  0% { 
-    opacity: 0; 
-    transform: scale(0.8) translateY(30px); 
-  }
-  60% { 
-    opacity: 0.7; 
-    transform: scale(1.05) translateY(-5px); 
-  }
-  100% { 
-    opacity: 1; 
-    transform: scale(1) translateY(0); 
-  }
+.form-container input[type="submit"]:hover {
+  background-color: #dddddd;
 }
 
-@media (max-width: 768px) {
-  .reveal-title {
-    font-size: 2.5rem;
-  }
-  
-  .subtitle {
-    font-size: 1.2rem;
-  }
-  
-  .spiral-container {
-    width: 200px;
-    height: 200px;
-  }
+.form-container label,
+.form-container input,
+.form-container input::placeholder {
+  font-size: 15px;
+  font-family: inherit;
 }
