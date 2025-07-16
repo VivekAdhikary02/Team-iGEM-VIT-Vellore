@@ -1,92 +1,116 @@
+
 import { Inspirations, InspirationLink } from "../components/Inspirations";
 
 export function Description() {
-  const links: InspirationLink[] = [
-    { year: 2024, teamName: "Heidelberg", pageName: "description" },
-    { year: 2024, teamName: "Marburg", pageName: "description" },
-    { year: 2024, teamName: "EPFL", pageName: "description" },
-    { year: 2024, teamName: "JU-Krakow", pageName: "description" },
-    { year: 2024, teamName: "UToronto", pageName: "description" },
-    { year: 2023, teamName: "Estonia-TUIT", pageName: "description" },
-  ];
-
   return (
     <>
+      {/* Project Overview Section */}
       <div className="row mt-4">
         <div className="col">
-          <div className="bd-callout bd-callout-info">
-            <h4>Bronze Medal Criterion #1: Wiki</h4>
-            <p>Describe how and why you chose your iGEM project.</p>
-            <hr />
-            <p>
-              Visit the{" "}
-              <a href="https://competition.igem.org/judging/medals">
-                Medals page
-              </a>{" "}
-              for more information.
-            </p>
-          </div>
+          <h2 id="project-overview">Project Overview</h2>
+          <hr />
+          <p>
+            {/* Add your project overview content here */}
+            Brief description of your project and its main objectives.
+          </p>
         </div>
       </div>
 
+      {/* Problem Statement Section */}
       <div className="row mt-4">
-        <div className="col-lg-8">
-          <h2>What Should this Page Contain?</h2>
+        <div className="col">
+          <h2 id="problem-statement">Problem Statement</h2>
           <hr />
-          <ul>
-            <li>
-              Explain the problem your project addresses and its potential
-              impact.
-            </li>
-            <li>
-              Provide a clear and concise summary of your project's goals and
-              objectives.
-            </li>
-            <li>
-              Detail the specific reasons why your team chose this project.
-            </li>
-            <li>
-              Explain the inspiration behind your project, including any prior
-              research or real-world problems that motivated your team.
-            </li>
-            <li>
-              Use illustrations, diagrams, and other visual aids to enhance
-              understanding.
-            </li>
-            <li>
-              Include relevant scientific background, technical details, and
-              experimental approaches.
-            </li>
-          </ul>
+          <p>
+            {/* Describe the problem your project addresses */}
+            What specific problem does your project aim to solve?
+          </p>
         </div>
-        <Inspirations inspirationLinkList={links} />
       </div>
 
+      {/* Solution Approach Section */}
       <div className="row mt-4">
-        <div className="col-lg-8">
-          <h2>Tips for Success</h2>
+        <div className="col">
+          <h2 id="solution-approach">Our Solution</h2>
+          <hr />
+          <p>
+            {/* Explain your proposed solution */}
+            How does your project address the identified problem?
+          </p>
+        </div>
+      </div>
+
+      {/* Project Goals Section */}
+      <div className="row mt-4">
+        <div className="col">
+          <h2 id="project-goals">Project Goals</h2>
           <hr />
           <ul>
-            <li>
-              While providing detailed information, strive for clarity and
-              conciseness.
-            </li>
-            <li>Use summaries and subheadings to organize your content.</li>
-            <li>Utilize visuals to enhance understanding and engagement.</li>
-            <li>Document your research process and sources thoroughly.</li>
+            <li>{/* Add your specific goals here */}Goal 1</li>
+            <li>Goal 2</li>
+            <li>Goal 3</li>
           </ul>
         </div>
-        <div className="col-lg-4">
-          <h2>References</h2>
+      </div>
+
+      {/* Innovation and Impact Section */}
+      <div className="row mt-4">
+        <div className="col">
+          <h2 id="innovation-impact">Innovation and Impact</h2>
           <hr />
           <p>
-            Cite all relevant research papers, scientific articles, and other
-            sources that informed your project.
+            {/* Describe what makes your project innovative and its potential impact */}
+            What makes your approach unique and what impact do you expect?
           </p>
+        </div>
+      </div>
+
+      {/* Team Motivation Section */}
+      <div className="row mt-4">
+        <div className="col">
+          <h2 id="team-motivation">Why We Chose This Project</h2>
+          <hr />
           <p>
-            Create a dedicated "References" section at the end of the page, and
-            use a consistent citation style.
+            {/* Explain why your team chose this particular project */}
+            What inspired your team to work on this specific problem?
           </p>
+        </div>
+      </div>
+
+      {/* Scientific Background Section */}
+      <div className="row mt-4">
+        <div className="col">
+          <h2 id="scientific-background">Scientific Background</h2>
+          <hr />
+          <p>
+            {/* Provide relevant scientific context */}
+            What scientific principles and background research support your project?
+          </p>
+        </div>
+      </div>
+
+      {/* Expected Outcomes Section */}
+      <div className="row mt-4">
+        <div className="col">
+          <h2 id="expected-outcomes">Expected Outcomes</h2>
+          <hr />
+          <p>
+            {/* Describe what you expect to achieve */}
+            What results do you anticipate from your project?
+          </p>
+        </div>
+      </div>
+
+      {/* References Section */}
+      <div className="row mt-4">
+        <div className="col">
+          <h2 id="references">References</h2>
+          <hr />
+          <ol>
+            <li>{/* Add your references here */}Reference 1</li>
+            <li>Reference 2</li>
+            <li>Reference 3</li>
+          </ol>
         </div>
       </div>
     </>
