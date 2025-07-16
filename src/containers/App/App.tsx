@@ -34,44 +34,45 @@ const App = () => {
       <ProgressBar />
 
       {/* Header and PageContent */}
-      <Routes>
-        {Object.entries(pathMapping).map(
-          ([path, { title, lead, component: Component }]) => (
-            <Route
-              key={path}
-              path={path}
-              element={
-                <>
-                  <Header title={title || ""} lead={lead || ""} />
-                  <SectionNavigator />
-                  <div className="main-content-wrapper">
-                    <div className="container">
-                      <Component />
+      <div className="page-layout">
+        <SectionNavigator />
+        <Routes>
+          {Object.entries(pathMapping).map(
+            ([path, { title, lead, component: Component }]) => (
+              <Route
+                key={path}
+                path={path}
+                element={
+                  <>
+                    <Header title={title || ""} lead={lead || ""} />
+                    <div className="main-content-wrapper">
+                      <div className="container">
+                        <Component />
+                      </div>
                     </div>
-                  </div>
-                </>
-              }
-            />
-          ),
-        )}
-        <Route
-          path="*"
-          element={
-            <>
-              <Header
-                title="Not Found"
-                lead="The requested URL was not found on this server."
+                  </>
+                }
               />
-              <SectionNavigator />
-              <div className="main-content-wrapper">
-                <div className="container">
-                  <NotFound />
+            ),
+          )}
+          <Route
+            path="*"
+            element={
+              <>
+                <Header
+                  title="Not Found"
+                  lead="The requested URL was not found on this server."
+                />
+                <div className="main-content-wrapper">
+                  <div className="container">
+                    <NotFound />
+                  </div>
                 </div>
-              </div>
-            </>
-          }
-        />
-      </Routes>
+              </>
+            }
+          />
+        </Routes>
+      </div>
 
       {/* Footer */}
       {/* MUST mention license AND have a link to team wiki's repository on gitlab.igem.org */}

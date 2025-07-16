@@ -5,7 +5,6 @@ import { useLocation } from 'react-router-dom';
 export function SectionNavigator() {
   const [sections, setSections] = useState<Array<{ id: string; title: string }>>([]);
   const [activeSection, setActiveSection] = useState<string>('');
-  const [isVisible, setIsVisible] = useState<boolean>(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -26,22 +25,9 @@ export function SectionNavigator() {
     });
     setSections(sectionList);
 
-    // Handle scroll to highlight active section and control visibility
+    // Handle scroll to highlight active section
     const handleScroll = () => {
       const scrollPosition = window.scrollY + 100;
-      const header = document.querySelector('.bg-hero');
-      const footer = document.querySelector('footer');
-      
-      if (header && footer) {
-        const headerRect = header.getBoundingClientRect();
-        const footerRect = footer.getBoundingClientRect();
-        
-        // Show navigator only when header is completely scrolled out and footer hasn't reached viewport
-        const headerScrolledOut = headerRect.bottom <= 0;
-        const footerNotReached = footerRect.top > 100;
-        
-        setIsVisible(headerScrolledOut && footerNotReached);
-      }
       
       // Update active section
       for (let i = sectionList.length - 1; i >= 0; i--) {
@@ -59,18 +45,6 @@ export function SectionNavigator() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [location.pathname]);
 
-  // Update main content margin based on sidebar visibility
-  useEffect(() => {
-    const mainContent = document.querySelector('.main-content-wrapper');
-    if (mainContent) {
-      if (isVisible) {
-        mainContent.classList.remove('sidebar-hidden');
-      } else {
-        mainContent.classList.add('sidebar-hidden');
-      }
-    }
-  }, [isVisible]);
-
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
@@ -78,10 +52,10 @@ export function SectionNavigator() {
     }
   };
 
-  if (sections.length === 0 || !isVisible) return null;
+  if (sections.length === 0) return null;
 
   return (
-    <div className={`section-navigator ${isVisible ? 'visible' : ''}`}>
+    <div className="section-navigator">
       <h6>On this page</h6>
       <ul>
         {sections.map((section) => (
