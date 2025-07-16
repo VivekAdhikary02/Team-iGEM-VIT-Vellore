@@ -35,7 +35,6 @@ export function SectionNavigator() {
       if (header && footer) {
         const headerRect = header.getBoundingClientRect();
         const footerRect = footer.getBoundingClientRect();
-        const currentScrollY = window.scrollY;
         
         // Show navigator only when header is completely scrolled out and footer hasn't reached viewport
         const headerScrolledOut = headerRect.bottom <= 0;
@@ -59,6 +58,18 @@ export function SectionNavigator() {
 
     return () => window.removeEventListener('scroll', handleScroll);
   }, [location.pathname]);
+
+  // Update main content margin based on sidebar visibility
+  useEffect(() => {
+    const mainContent = document.querySelector('.main-content-wrapper');
+    if (mainContent) {
+      if (isVisible) {
+        mainContent.classList.remove('sidebar-hidden');
+      } else {
+        mainContent.classList.add('sidebar-hidden');
+      }
+    }
+  }, [isVisible]);
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
