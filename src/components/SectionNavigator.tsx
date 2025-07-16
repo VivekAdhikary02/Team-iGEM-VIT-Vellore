@@ -35,13 +35,11 @@ export function SectionNavigator() {
       if (header && footer) {
         const headerRect = header.getBoundingClientRect();
         const footerRect = footer.getBoundingClientRect();
-        const headerBottom = headerRect.bottom + window.scrollY;
-        const footerTop = footerRect.top + window.scrollY;
         const currentScrollY = window.scrollY;
         
-        // Show navigator only when header is scrolled out but footer hasn't reached viewport
-        const headerScrolledOut = currentScrollY > headerBottom - window.innerHeight;
-        const footerNotReached = footerRect.top > 100; // Footer is at least 100px from top of viewport
+        // Show navigator only when header is completely scrolled out and footer hasn't reached viewport
+        const headerScrolledOut = headerRect.bottom <= 0;
+        const footerNotReached = footerRect.top > 100;
         
         setIsVisible(headerScrolledOut && footerNotReached);
       }

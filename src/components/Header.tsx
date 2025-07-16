@@ -5,12 +5,12 @@ interface HeaderProps {
 
 export function Header({ title, lead }: HeaderProps) {
   return (
-    <header className="bg-hero py-5 mb-5">
+    <header className="bg-hero">
       <div className="container h-100">
-        <div className="row h-100 align-items-center">
-          <div className="col-lg-12">
-            <h1 className="display-4 text-white mt-5 mb-2">{title}</h1>
-            <p className="lead mb-5 text-white-50">{lead}</p>
+        <div className="row h-100 align-items-center justify-content-center">
+          <div className="col-lg-12 text-center">
+            <h1 className="display-4 text-white mb-4">{title}</h1>
+            <p className="lead text-white-50">{lead}</p>
           </div>
         </div>
       </div>

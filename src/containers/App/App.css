@@ -41,13 +41,13 @@ footer {
   transition: width 0.1s;
 }
 
-/* Section Navigator - Floating Sidebar */
+/* Section Navigator - Fixed Sidebar */
 .section-navigator {
   position: fixed;
   top: 20px;
   left: 20px;
   width: 250px;
-  max-height: calc(100vh - 120px);
+  max-height: calc(100vh - 40px);
   padding: 1rem;
   background-color: rgba(248, 249, 250, 0.95);
   backdrop-filter: blur(10px);
@@ -167,6 +167,10 @@ footer {
 
 .bg-hero {
   background-color: #45b06cff;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* CALLOUT */
