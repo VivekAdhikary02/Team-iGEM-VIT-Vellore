@@ -4,22 +4,20 @@ body {
 }
 
 .main-content-wrapper {
-  margin-left: 250px;
+  margin-left: 0;
   padding: 2rem;
   min-height: calc(100vh - 200px);
-  transition: margin-left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Header adjustments for sidebar */
+/* Header and footer now full width */
 .bg-hero {
-  margin-left: 250px;
-  transition: margin-left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-left: 0;
+  width: 100%;
 }
 
-/* Footer adjustments for sidebar */
 footer {
-  margin-left: 250px;
-  transition: margin-left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-left: 0;
+  width: 100%;
 }
 
 .left-aligned {
@@ -43,26 +41,30 @@ footer {
   transition: width 0.1s;
 }
 
-/* Section Navigator */
+/* Section Navigator - Floating Sidebar */
 .section-navigator {
   position: fixed;
-  top: 59px;
-  left: 0;
+  top: 20px;
+  left: 20px;
   width: 250px;
-  height: calc(100vh - 59px);
+  max-height: calc(100vh - 120px);
   padding: 1rem;
-  background-color: #f8f9fa;
-  border-right: 1px solid #dee2e6;
+  background-color: rgba(248, 249, 250, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   overflow-y: auto;
   z-index: 999;
   opacity: 0;
-  transform: translateX(-100%);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  visibility: hidden;
+  transform: translateX(-20px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .section-navigator.visible {
   opacity: 1;
+  visibility: visible;
   transform: translateX(0);
 }
 

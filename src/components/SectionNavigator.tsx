@@ -29,18 +29,21 @@ export function SectionNavigator() {
     // Handle scroll to highlight active section and control visibility
     const handleScroll = () => {
       const scrollPosition = window.scrollY + 100;
-      const mainContent = document.querySelector('.main-content-wrapper');
+      const header = document.querySelector('.bg-hero');
       const footer = document.querySelector('footer');
       
-      if (mainContent && footer) {
-        const mainContentRect = mainContent.getBoundingClientRect();
+      if (header && footer) {
+        const headerRect = header.getBoundingClientRect();
         const footerRect = footer.getBoundingClientRect();
-        const mainContentTop = mainContentRect.top + window.scrollY;
+        const headerBottom = headerRect.bottom + window.scrollY;
         const footerTop = footerRect.top + window.scrollY;
-        const currentPosition = window.scrollY + window.innerHeight / 2;
+        const currentScrollY = window.scrollY;
         
-        // Show navigator only when in main content area
-        setIsVisible(currentPosition >= mainContentTop && currentPosition < footerTop);
+        // Show navigator only when header is scrolled out but footer hasn't reached viewport
+        const headerScrolledOut = currentScrollY > headerBottom - window.innerHeight;
+        const footerNotReached = footerRect.top > 100; // Footer is at least 100px from top of viewport
+        
+        setIsVisible(headerScrolledOut && footerNotReached);
       }
       
       // Update active section
