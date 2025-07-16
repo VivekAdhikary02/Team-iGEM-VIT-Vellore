@@ -6,18 +6,18 @@ export function Footer() {
   const teamSlug = stringToSlug(teamName);
 
   return (
-    <footer className="pt-5 pb-5 footer py-5 mt-5 bg-dark text-white">
+    <footer className="pt-3 pb-3 footer py-3 mt-3 bg-dark text-white">
       <div className="container">
-        <div className="row mb-4">
+        <div className="row mb-2">
           <div className="col-lg-6 col-xs-12">
-            <h4 className="mb-3">Heading</h4>
+            <h5 className="mb-2">Heading</h5>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ac
               ante mollis quam tristique convallis
             </p>
           </div>
           <div className="col-lg-3 col-xs-12">
-            <h4 className="mt-lg-0 mt-sm-3">Links</h4>
+            <h5 className="mt-lg-0 mt-sm-2">Links</h5>
             <ul className="m-2 p-2">
               <li>
                 <a href="#">Lorem ipsum</a>
@@ -40,7 +40,7 @@ export function Footer() {
             </ul>
           </div>
           <div className="col-lg-3 col-xs-12">
-            <h4 className="mt-lg-0 mt-sm-4 mb-3">Contact</h4>
+            <h5 className="mt-lg-0 mt-sm-2 mb-2">Contact</h5>
             <p>22, Lorem ipsum dolor, consectetur adipiscing</p>
             <p className="mb-0">(541) 754-3010</p>
             <p>info@hsdf.com</p>
@@ -48,7 +48,7 @@ export function Footer() {
         </div>
         <hr />
         {/* The following MUST be on every page: license information and link to the repository on gitlab.igem.org */}
-        <div className="row mt-4">
+        <div className="row mt-2">
           <div className="col">
             <p className="mb-0">
               <small>

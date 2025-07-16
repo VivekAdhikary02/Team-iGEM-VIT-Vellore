@@ -211,6 +211,11 @@ footer {
 }
 
 /* footer */
+footer {
+  z-index: 1001 !important;
+  padding: 2rem 0 !important;
+}
+
 footer a {
   color: white;
   font-weight: bold;
