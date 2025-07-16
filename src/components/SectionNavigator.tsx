@@ -5,7 +5,6 @@ import { useLocation } from 'react-router-dom';
 export function SectionNavigator() {
   const [sections, setSections] = useState<Array<{ id: string; title: string }>>([]);
   const [activeSection, setActiveSection] = useState<string>('');
-  const [isVisible, setIsVisible] = useState<boolean>(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -26,22 +25,9 @@ export function SectionNavigator() {
     });
     setSections(sectionList);
 
-    // Handle scroll to show/hide navigation and highlight active section
+    // Handle scroll to highlight active section
     const handleScroll = () => {
-      const header = document.querySelector('.bg-hero');
-      const footer = document.querySelector('footer');
       const scrollPosition = window.scrollY + 100;
-      
-      // Check if header is scrolled out
-      const headerBottom = header ? (header.offsetTop || 0) + (header.offsetHeight || 0) : 0;
-      const headerScrolledOut = window.scrollY > headerBottom - 100;
-      
-      // Check if footer is reached
-      const footerTop = footer ? footer.offsetTop : document.body.scrollHeight;
-      const footerReached = window.scrollY + window.innerHeight > footerTop - 50;
-      
-      // Show navigation if header is scrolled out and footer is not reached
-      setIsVisible(headerScrolledOut && !footerReached);
       
       // Update active section
       for (let i = sectionList.length - 1; i >= 0; i--) {
@@ -69,7 +55,7 @@ export function SectionNavigator() {
   if (sections.length === 0) return null;
 
   return (
-    <div className={`section-navigator ${isVisible ? 'visible' : ''}`}>
+    <div className="section-navigator">
       <h6>On this page</h6>
       <ul>
         {sections.map((section) => (

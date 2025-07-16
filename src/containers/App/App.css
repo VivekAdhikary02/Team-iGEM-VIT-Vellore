@@ -4,11 +4,12 @@ body {
 }
 
 .page-layout {
-  display: block;
+  display: flex;
   min-height: calc(100vh - 56px);
 }
 
 .main-content-wrapper {
+  flex: 1;
   padding: 2rem;
   min-height: calc(100vh - 200px);
 }
@@ -45,25 +46,17 @@ footer {
   transition: width 0.1s;
 }
 
-/* Section Navigator - Floating sidebar */
+/* Section Navigator - Integrated sidebar */
 .section-navigator {
-  position: fixed;
-  left: 0;
-  top: 56px;
   width: 250px;
-  height: calc(100vh - 56px);
   padding: 1.5rem;
   background-color: #f8f9fa;
   border-right: 1px solid #dee2e6;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
   overflow-y: auto;
-  z-index: 999;
-  transform: translateX(-100%);
-  transition: transform 0.3s ease;
-}
-
-.section-navigator.visible {
-  transform: translateX(0);
+  position: sticky;
+  top: 56px;
+  height: calc(100vh - 56px);
 }
 
 .section-navigator h6 {

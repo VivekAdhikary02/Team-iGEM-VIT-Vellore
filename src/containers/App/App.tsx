@@ -33,8 +33,31 @@ const App = () => {
       {/* Progress Bar */}
       <ProgressBar />
 
-      {/* Header and PageContent */}
+      {/* Header */}
+      <Routes>
+        {Object.entries(pathMapping).map(
+          ([path, { title, lead, component: Component }]) => (
+            <Route
+              key={path}
+              path={path}
+              element={<Header title={title || ""} lead={lead || ""} />}
+            />
+          ),
+        )}
+        <Route
+          path="*"
+          element={
+            <Header
+              title="Not Found"
+              lead="The requested URL was not found on this server."
+            />
+          }
+        />
+      </Routes>
+
+      {/* Main Content with Navigation */}
       <div className="page-layout">
+        <SectionNavigator />
         <Routes>
           {Object.entries(pathMapping).map(
             ([path, { title, lead, component: Component }]) => (
@@ -42,14 +65,11 @@ const App = () => {
                 key={path}
                 path={path}
                 element={
-                  <>
-                    <Header title={title || ""} lead={lead || ""} />
-                    <div className="main-content-wrapper">
-                      <div className="container">
-                        <Component />
-                      </div>
+                  <div className="main-content-wrapper">
+                    <div className="container">
+                      <Component />
                     </div>
-                  </>
+                  </div>
                 }
               />
             ),
@@ -57,24 +77,15 @@ const App = () => {
           <Route
             path="*"
             element={
-              <>
-                <Header
-                  title="Not Found"
-                  lead="The requested URL was not found on this server."
-                />
-                <div className="main-content-wrapper">
-                  <div className="container">
-                    <NotFound />
-                  </div>
+              <div className="main-content-wrapper">
+                <div className="container">
+                  <NotFound />
                 </div>
-              </>
+              </div>
             }
           />
         </Routes>
       </div>
-
-      {/* Section Navigator */}
-      <SectionNavigator />
 
       {/* Footer */}
       {/* MUST mention license AND have a link to team wiki's repository on gitlab.igem.org */}
