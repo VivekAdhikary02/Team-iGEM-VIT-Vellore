@@ -33,7 +33,7 @@ export function SectionNavigator() {
       const scrollPosition = window.scrollY + 100;
       
       // Check if header is scrolled out
-      const headerBottom = header ? header.offsetTop + header.offsetHeight : 0;
+      const headerBottom = header ? (header.offsetTop || 0) + (header.offsetHeight || 0) : 0;
       const headerScrolledOut = window.scrollY > headerBottom - 100;
       
       // Check if footer is reached
