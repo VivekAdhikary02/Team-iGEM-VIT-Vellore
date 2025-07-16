@@ -35,7 +35,6 @@ const App = () => {
 
       {/* Header and PageContent */}
       <div className="page-layout">
-        <SectionNavigator />
         <Routes>
           {Object.entries(pathMapping).map(
             ([path, { title, lead, component: Component }]) => (
@@ -73,6 +72,9 @@ const App = () => {
           />
         </Routes>
       </div>
+
+      {/* Section Navigator */}
+      <SectionNavigator />
 
       {/* Footer */}
       {/* MUST mention license AND have a link to team wiki's repository on gitlab.igem.org */}
