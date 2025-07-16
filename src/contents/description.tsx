@@ -13,6 +13,24 @@ export function Description() {
             {/* Add your project overview content here */}
             Brief description of your project and its main objectives.
           </p>
+          
+          {/* Image Upload Block */}
+          <div className="row mt-3">
+            <div className="col-md-6">
+              <div className="border rounded p-3 text-center bg-light">
+                <i className="fas fa-cloud-upload-alt fa-2x text-muted mb-2"></i>
+                <p className="text-muted mb-0">Upload Project Overview Image</p>
+                <small className="text-muted">Drag & drop or click to upload</small>
+              </div>
+            </div>
+            <div className="col-md-6">
+              <div className="border rounded p-3 text-center bg-light">
+                <i className="fas fa-image fa-2x text-muted mb-2"></i>
+                <p className="text-muted mb-0">Project Logo/Diagram</p>
+                <small className="text-muted">Recommended: 800x600px</small>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -25,6 +43,17 @@ export function Description() {
             {/* Describe the problem your project addresses */}
             What specific problem does your project aim to solve?
           </p>
+          
+          {/* Image Upload Block */}
+          <div className="row mt-3">
+            <div className="col-md-8">
+              <div className="border rounded p-3 text-center bg-light">
+                <i className="fas fa-chart-line fa-2x text-muted mb-2"></i>
+                <p className="text-muted mb-0">Problem Statistics/Data Visualization</p>
+                <small className="text-muted">Charts, graphs, or infographics showing the problem scope</small>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -37,6 +66,24 @@ export function Description() {
             {/* Explain your proposed solution */}
             How does your project address the identified problem?
           </p>
+          
+          {/* Image Upload Block */}
+          <div className="row mt-3">
+            <div className="col-md-6">
+              <div className="border rounded p-3 text-center bg-light">
+                <i className="fas fa-cogs fa-2x text-muted mb-2"></i>
+                <p className="text-muted mb-0">Solution Workflow Diagram</p>
+                <small className="text-muted">Process flow or system architecture</small>
+              </div>
+            </div>
+            <div className="col-md-6">
+              <div className="border rounded p-3 text-center bg-light">
+                <i className="fas fa-microscope fa-2x text-muted mb-2"></i>
+                <p className="text-muted mb-0">Lab Setup/Equipment Photos</p>
+                <small className="text-muted">Visual documentation of your approach</small>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -62,6 +109,17 @@ export function Description() {
             {/* Describe what makes your project innovative and its potential impact */}
             What makes your approach unique and what impact do you expect?
           </p>
+          
+          {/* Image Upload Block */}
+          <div className="row mt-3">
+            <div className="col-md-12">
+              <div className="border rounded p-3 text-center bg-light">
+                <i className="fas fa-lightbulb fa-2x text-muted mb-2"></i>
+                <p className="text-muted mb-0">Innovation Showcase</p>
+                <small className="text-muted">Before/after comparisons, impact projections, or innovation highlights</small>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -86,6 +144,24 @@ export function Description() {
             {/* Provide relevant scientific context */}
             What scientific principles and background research support your project?
           </p>
+          
+          {/* Image Upload Block */}
+          <div className="row mt-3">
+            <div className="col-md-6">
+              <div className="border rounded p-3 text-center bg-light">
+                <i className="fas fa-dna fa-2x text-muted mb-2"></i>
+                <p className="text-muted mb-0">Scientific Diagrams</p>
+                <small className="text-muted">Molecular structures, pathways, or mechanisms</small>
+              </div>
+            </div>
+            <div className="col-md-6">
+              <div className="border rounded p-3 text-center bg-light">
+                <i className="fas fa-book-open fa-2x text-muted mb-2"></i>
+                <p className="text-muted mb-0">Research Citations Visual</p>
+                <small className="text-muted">Timeline or network of supporting research</small>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -98,6 +174,17 @@ export function Description() {
             {/* Describe what you expect to achieve */}
             What results do you anticipate from your project?
           </p>
+          
+          {/* Image Upload Block */}
+          <div className="row mt-3">
+            <div className="col-md-8">
+              <div className="border rounded p-3 text-center bg-light">
+                <i className="fas fa-target fa-2x text-muted mb-2"></i>
+                <p className="text-muted mb-0">Expected Results Visualization</p>
+                <small className="text-muted">Projected outcomes, timelines, or success metrics</small>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
